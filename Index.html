@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chouchou d'amour chat bot</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+    <style>
+        body {
+            background-color: #ffcccc; /* Light pink background color */
+            text-align: center;
+            font-size: 24px;
+        }
+
+        h1 {
+            color: #ff6b6b; /* Dark pink title color */
+            font-size: 3em; /* Increased title font size */
+            font-family: 'Dancing Script', cursive; /* Beautiful and elegant font family */
+            margin-top: 20px; /* Adjusted margin-top for the title */
+        }
+
+        #chat-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        #chat-output {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            max-width: 700px;
+            word-wrap: break-word;
+            font-size: 17px;
+        }
+
+        #user-input {
+            width: 500px;
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 8px;
+            font-size: 17px;
+        }
+
+        button {
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+	#Chronomètre de l'amour {
+        color: #ff6b6b; /* Dark pink color */
+        font-family: 'Dancing Script', cursive; /* Use the same font family as the title */
+        margin-top: 25px;
+    }
+    </style>
+</head>
+<body>
+
+<div>
+    <h1>Chouchou d'amour chat bot</h1>
+    <div id="chat-container">
+        <div id="chat-output"></div>
+        <input type="text" id="user-input" placeholder="Parlons ensemble..." onkeydown="if (event.key === 'Enter') sendMessage()">
+        <button onclick="sendMessage()">Envoyer</button>
+        <div id="horlocouple"></div>
+    </div>
+</div>
+<script>
+    const apiKey = 'K1NjJi3Vn9FwoGE71vYWbcSSkfNZl9qV'; // Replace with your actual Mistral AI API key
+
+    function sendMessage() {
+        const userInput = document.getElementById('user-input').value;
+        const chatOutput = document.getElementById('chat-output');
+
+        // Display user message
+        chatOutput.innerHTML += `<div>User: ${userInput}</div>`;
+
+        // Make API request for chat completions
+        fetch('https://api.mistral.ai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                "model": "mistral-small", // Replace with your Mistral AI model ID
+                "messages": [
+                    {"role": "user", "content": "allo"},
+                    {"role": "assistant", "content": "Je suis le chat bot ChouChou d'amour. Comment puis-je vous assister?"},
+                    {"role": "user", "content": "Parle moi de Mac"},
+                    {"role": "assistant", "content": "Mac est en couple avec Chou depuis le 26 janvier 2019 à 17h32. Mac aime Chou de tout son cœur. Mac a fait ce site web pour célébrer leur quatrième anniversaire de couple. Mac est né le 10 février 2003"},
+                    {"role": "user", "content": "Parfait, parle moi de Chou maintenant."},
+                    {"role": "assistant", "content": "Chou est la copine de Mac. Elle est formidable, excentrique, admirable, aimable, géniale, farfelue, rigolote, sensible, intelligente, créative, incroyable, forte, merveilleuse, intéressante, cultivée, jolie, séduisante et shmoutée. Chou est née le 29 aout 2003. Elle est une artiste exceptionnelle."},
+ 				{"role": "user", "content": "Quel jour sommes nous?"},
+                    {"role": "assistant", "content": "Nous sommes le 26 janvier 2024. Nous célebrons les 5 ans de la relation de Chou et Mac!"},
+				{"role": "user", "content": "Peux-tu me montrer la lettre que Mac a écrite pour Chou?"},
+                    {"role": "assistant", "content": "Certainement, la voici : Je t'aime de tout mon coeur et je veux rester avec toi pour l'éternité."},
+                    {"role": "user", "content": userInput}
+                ],
+                "temperature": 0.3,  // You can adjust this value
+                "top_p": 1,          // You can adjust this value
+                "max_tokens": 5000   // You can adjust this value
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Display Mistral AI response
+            chatOutput.innerHTML += `<div>Chou-assistant: ${data.choices[0].message.content}</div>`;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+// Function to update the "horlocouple" element
+    function updateHorloCouple() {
+        const startDate = new Date("January 26, 2019 17:32:00");
+        const currentDate = new Date();
+        const timeDifference = currentDate - startDate;
+
+        const years = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 365.25));
+        const days = Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        const horlocoupleElement = document.getElementById('horlocouple');
+        horlocoupleElement.innerHTML = `<h2 style="color: #ff6b6b; font-family: 'Dancing Script', cursive;">Chronomètre de l'amour</h2><p>${years} ans, ${days} jours, ${hours} heures, ${minutes} minutes, ${seconds} secondes</p>`;
+    }
+
+    // Initial call to set up the "horlocouple" element
+    updateHorloCouple();
+
+    // Function to update "horlocouple" every second
+    setInterval(updateHorloCouple, 1000);
+</script>
+
+</body>
+</html>
