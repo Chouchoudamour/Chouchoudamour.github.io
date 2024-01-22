@@ -57,9 +57,6 @@
         margin-top: 25px;
     }
 	#horlocouple {
-position: fixed; /* La boîte restera fixe par rapport à la fenêtre du navigateur */
-    top: -10px; /* Ajoutez la valeur de décalage depuis le haut selon vos préférences */
-    right: 0px; /* Ajoutez la valeur de décalage depuis la droite selon vos préférences */
     background-color: #474752; /* Couleur de fond de la boîte du chronomètre */
     padding: 15px; /* Espacement à l'intérieur de la boîte */
     border-radius: 10px; /* Bordure arrondie de la boîte */
@@ -89,14 +86,16 @@ position: fixed; /* La boîte restera fixe par rapport à la fenêtre du navigat
 
 <div>
         <h1>Chouchou d'amour dialogueur</h1>
-        <div id="chat-container">
-            <div id="chat-output"></div>
-            <div style="display: flex; align-items: center;">
-                <input type="text" id="user-input" placeholder="Parlons ensemble..." onkeydown="if (event.key === 'Enter') sendMessage()">
-                <button onclick="sendMessage()">Envoyer</button>
+        <div id="main-container" style="display: flex; flex-direction: column; align-items: center;">
+            <div id="chat-container" style="display: flex; flex-direction: column; align-items: center;">
+                <div id="chat-output"></div>
+                <div style="display: flex; align-items: center;">
+                    <input type="text" id="user-input" placeholder="Parlons ensemble..." onkeydown="if (event.key === 'Enter') sendMessage()">
+                    <button onclick="sendMessage()">Envoyer</button>
+                </div>
+                <div id="horlocouple"></div>
             </div>
         </div>
-        <div id="horlocouple"></div>
     </div>
 <script>
     const apiKey = 'K1NjJi3Vn9FwoGE71vYWbcSSkfNZl9qV'; // Replace with your actual Mistral AI API key
