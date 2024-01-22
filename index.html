@@ -111,6 +111,8 @@
         .then(data => {
             // Display Mistral AI response
             chatOutput.innerHTML += `<div>Chou-assistant: ${data.choices[0].message.content}</div>`;
+        // Reset user input
+        document.getElementById('user-input').value = '';
         })
         .catch(error => console.error('Error:', error));
     }
