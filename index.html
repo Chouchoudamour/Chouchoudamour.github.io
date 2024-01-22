@@ -54,6 +54,19 @@
         font-family: 'Dancing Script', cursive; /* Use the same font family as the title */
         margin-top: 25px;
     }
+	#horlocouple {
+    background-color: #fff; /* Couleur de fond de la boîte du chronomètre */
+    padding: 15px; /* Espacement à l'intérieur de la boîte */
+    border-radius: 10px; /* Bordure arrondie de la boîte */
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère pour la boîte */
+}
+
+#ChronometreText {
+    color: #ff6b6b; /* Couleur du texte du chronomètre */
+    font-family: 'Dancing Script', cursive; /* Police du texte du chronomètre */
+    margin-top: 5px; /* Espacement entre le titre et le texte du chronomètre */
+}
 	.user-message {
     color: #3366cc !important; /* Change this to the color you want for user messages */
     display: block;
@@ -140,7 +153,7 @@
         const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
         const horlocoupleElement = document.getElementById('horlocouple');
-        horlocoupleElement.innerHTML = `<h2 style="color: #ff6b6b; font-family: 'Dancing Script', cursive;">Chronomètre de l'amour</h2><p>${years} ans, ${days} jours, ${hours} heures, ${minutes} minutes, ${seconds} secondes</p>`;
+        horlocoupleElement.innerHTML = `<div id="ChronometreText"><h2>Chronomètre de l'amour</h2><p>${years} ans, ${days} jours, ${hours} heures, ${minutes} minutes, ${seconds} secondes</p></div>`;
     }
 
     // Initial call to set up the "horlocouple" element
