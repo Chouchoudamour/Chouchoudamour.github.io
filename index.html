@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chouchou d'amour dialogueur</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap">
     <style>
         body {
             background-color: #ffcccc; /* Light pink background color */
@@ -49,7 +50,7 @@
             border-radius: 8px;
             font-size: 16px;
         }
-	#Chronomètre de l'amour {
+	#Chronomètredelamour {
         color: #ff6b6b; /* Dark pink color */
         font-family: 'Pacifico', cursive; /* Use the same font family as the title */
         margin-top: 25px;
@@ -153,7 +154,7 @@
         const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
         const horlocoupleElement = document.getElementById('horlocouple');
-        horlocoupleElement.innerHTML = `<div id="ChronometreText"><h2>Chronomètre de l'amour</h2><p>${years} ans, ${days} jours, ${hours} heures, ${minutes} minutes, ${seconds} secondes</p></div>`;
+        horlocoupleElement.innerHTML = `<div id="ChronometreText"><h2>Chronomètredelamour</h2><p>${years} ans, ${days} jours, ${hours} heures, ${minutes} minutes, ${seconds} secondes</p></div>`;
     }
 
     // Initial call to set up the "horlocouple" element
