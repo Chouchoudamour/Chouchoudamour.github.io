@@ -54,6 +54,15 @@
         font-family: 'Dancing Script', cursive; /* Use the same font family as the title */
         margin-top: 25px;
     }
+	.user-message {
+    color: #3366cc; /* Change this to the color you want for user messages */
+    margin-top: 10px;
+}
+
+.assistant-message {
+    color: #ff6b6b; /* Change this to the color you want for assistant messages */
+    margin-top: 10px;
+}
     </style>
 </head>
 <body>
@@ -75,7 +84,7 @@
         const chatOutput = document.getElementById('chat-output');
 
         // Display user message
-        chatOutput.innerHTML += `<div>User: ${userInput}</div>`;
+        chatOutput.innerHTML += `<div class="user-message">User: ${userInput}</div>`;
 
         // Make API request for chat completions
         fetch('https://api.mistral.ai/v1/chat/completions', {
@@ -110,7 +119,7 @@
         .then(response => response.json())
         .then(data => {
             // Display Mistral AI response
-            chatOutput.innerHTML += `<div>Chou-assistant: ${data.choices[0].message.content}</div>`;
+            chatOutput.innerHTML += `<div class="assistant-message">Chou-assistant: ${data.choices[0].message.content}</div>`;
         // Reset user input
         document.getElementById('user-input').value = '';
         })
