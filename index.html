@@ -91,6 +91,7 @@
                 <div style="display: flex; align-items: center;">
                     <input type="text" id="user-input" placeholder="Parlons ensemble..." onkeydown="if (event.key === 'Enter') sendMessage()">
                     <button onclick="sendMessage()">Envoyer</button>
+                    <button onclick="restartConversation()">Recommencer</button>
                 </div>
                 <div id="horlocouple"></div>
             </div>
@@ -175,6 +176,22 @@
             const horlocoupleElement = document.getElementById('horlocouple');
             horlocoupleElement.innerHTML = `<div id="ChronometreText"><h2>Chronomètre de l'amour</h2><p>${years} ans, ${days} jours, ${hours} heures, ${minutes} minutes, ${seconds} secondes</p></div>`;
         }
+// Function to restart the conversation
+    function restartConversation() {
+        // Réinitialise la variable conversationHistory avec les messages initiaux
+        conversationHistory = [
+            {"role": "user", "content": "allo"},
+            {"role": "assistant", "content": "Je suis le chat bot ChouChou d'amour. Comment puis-je vous assister?"},
+            {"role": "user", "content": "Parle moi de Mac"},
+            // ... (ajoutez tous les messages initiaux que vous souhaitez conserver)
+        ];
+
+        // Sauvegarde dans le stockage local
+        localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
+
+        // Efface le contenu du chat-output
+        document.getElementById('chat-output').innerHTML = '';
+    }
 
         // Initial call to set up the "horlocouple" element
         updateHorloCouple();
