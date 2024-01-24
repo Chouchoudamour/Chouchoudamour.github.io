@@ -96,18 +96,19 @@
             </div>
         </div>
     </div>
-<script>
-        const apiKey = 'K1NjJi3Vn9FwoGE71vYWbcSSkfNZl9qV'; // Replace with your actual Mistral AI API key
+    <script>
+        const apiKey = 'K1NjJi3Vn9FwoGE71vYWbcSSkfNZl9qV'; // Remplacez par votre clé API Mistral AI
 
         let chatMessages = [];
+        let userMessages = [];
 
         function sendMessage() {
             const userInput = document.getElementById('user-input').value;
             const chatOutput = document.getElementById('chat-output');
-		
+
             // Ajouter le message de l'utilisateur à la liste
-    userMessages.push({ role: 'user', content: userInput });
-		
+            userMessages.push({ role: 'user', content: userInput });
+
             // Ajouter les messages spécifiés dans la partie "body"
             const initialMessages = [
                 {"role": "user", "content": "allo"},
@@ -123,11 +124,14 @@
                 {"role": "user", "content": "Quelles sont les affinités de ce couple"},
                 {"role": "assistant", "content": "Chou et Mac s'adorent puisqu'ils aiment rire ensemble et ont une passion commune pour la nature. De plus, Mac est un grand mangeur et Chou, une excellente cuisinière."},
             ];
-    // Ajouter tous les messages à la liste (y compris les messages initiaux et les messages de l'utilisateur)
-    const allMessages = [
-        ...initialMessages,
-        ...chatMessages
-    ];		
+
+            // Ajouter tous les messages à la liste (y compris les messages initiaux et les messages de l'utilisateur)
+            const allMessages = [
+                ...initialMessages,
+                ...userMessages,
+                ...chatMessages
+            ];
+
             // Make API request for chat completions
             fetch('https://api.mistral.ai/v1/chat/completions', {
                 method: 'POST',
@@ -137,7 +141,7 @@
                     'Authorization': `Bearer ${apiKey}`
                 },
                 body: JSON.stringify({
-                    "model": "mistral-small", // Replace with your Mistral AI model ID
+                    "model": "mistral-small", // Remplacez par votre ID de modèle Mistral AI
                     "messages": allMessages,
                     "temperature": 0.3,
                     "top_p": 1,
