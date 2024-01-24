@@ -100,13 +100,17 @@
         const apiKey = 'K1NjJi3Vn9FwoGE71vYWbcSSkfNZl9qV'; // Replace with your actual Mistral AI API key
 
         let chatMessages = [];
+	let userMessages = [];
 
         function sendMessage() {
             const userInput = document.getElementById('user-input').value;
             const chatOutput = document.getElementById('chat-output');
 
+		// Réinitialiser la liste des messages de l'utilisateur
+    userMessages = [];
+		
             // Ajouter le message de l'utilisateur à la liste
-            userMessages.push(userInput);
+    userMessages.push({ role: 'user', content: userInput });
 
             // Ajouter les messages spécifiés dans la partie "body"
             const initialMessages = [
