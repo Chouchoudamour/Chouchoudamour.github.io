@@ -103,8 +103,8 @@
             const userInput = document.getElementById('user-input').value;
             const chatOutput = document.getElementById('chat-output');
 
-		// Add user message to the chat container with user-message class
-        chatOutput.innerHTML += `<div class="user-message">Vous: ${userInput}</div>`;
+    // Add user message to the chat container with user-message class
+    chatOutput.innerHTML += `<span class="user-message">Vous: ${userInput}</span>`;
 
             // Make API request for chat completions
         fetch('https://api.mistral.ai/v1/chat/completions', {
@@ -136,9 +136,9 @@
         })
             .then(response => response.json())
             .then(data => {
-                // Display Mistral AI response with assistant-message class
-            chatOutput.innerHTML += `<div class="assistant-message">Chou-assistant: ${data.choices[0].message.content}</div>`;
-        })
+// Display Mistral AI response with assistant-message class
+        chatOutput.innerHTML += `<span class="${data.choices[0].message.role}-message">${data.choices[0].message.role.charAt(0).toUpperCase() + data.choices[0].message.role.slice(1)}-assistant: ${data.choices[0].message.content}</span>`;
+    })
         .catch(error => console.error('Error:', error));
     }
         // Function to update the "horlocouple" element
