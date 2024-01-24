@@ -100,11 +100,15 @@
     const apiKey = 'K1NjJi3Vn9FwoGE71vYWbcSSkfNZl9qV'; // Replace with your actual Mistral AI API key
 	
 let chatMessages = [];
+let userMessages = [];
 	
 function sendMessage() {
     const userInput = document.getElementById('user-input').value;
     const chatOutput = document.getElementById('chat-output');
 
+	// Ajouter le message de l'utilisateur à la liste
+    userMessages.push(userInput);
+	
     // Make API request for chat completions
     fetch('https://api.mistral.ai/v1/chat/completions', {
         method: 'POST',
@@ -129,7 +133,7 @@ function sendMessage() {
                         {"role": "user", "content": "Quelles sont les affinités de ce couple"},
                         {"role": "assistant", "content": "Chou et Mac s'adorent puisqu'ils aiment rire ensemble et ont une passion commune pour la nature. De plus, Mac est un grand mangeur et Chou, une excellente cuisinière."},
                         {"role": "user", "content": userInput}
-                    ].concat(chatMessages.map(message => ({ role: 'user', content: message.content }))),
+                    ].concat(userMessages.map(message => ({ role: 'user', content: message }))),
                     "temperature": 0.3,
                     "top_p": 1,
                     "max_tokens": 5000
