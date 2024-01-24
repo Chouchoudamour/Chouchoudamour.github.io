@@ -99,24 +99,10 @@
     <script>
         const apiKey = 'K1NjJi3Vn9FwoGE71vYWbcSSkfNZl9qV'; // Remplacez par votre clé API Mistral AI
 
-	    let conversationHistory = [
-	{ role: 'assistant', content: "Je suis le chat bot ChouChou d'amour. Comment puis-je vous assister?" },
-	{ role: 'user', content: "Parle moi de Mac" },
- 	{"role": "assistant", "content": "Mac est en couple avec Chou depuis le 26 janvier 2019 à 17h32. Mac aime Chou de tout son cœur. Mac a fait ce site web pour célébrer leur quatrième anniversaire de couple. Mac est né le 10 février 2003"},
-        {"role": "user", "content": "Parfait, parle moi de Chou maintenant."},
-        {"role": "assistant", "content": "Chou est la copine de Mac. Elle est formidable, excentrique, admirable, aimable, géniale, farfelue, rigolote, sensible, intelligente, créative, incroyable, forte, merveilleuse, intéressante, cultivée, jolie, séduisante et shmoutée. Chou est née le 29 aout 2003. Elle est une artiste exceptionnelle."},
- 	{"role": "user", "content": "Quel jour sommes nous?"},
-        {"role": "assistant", "content": "Nous sommes le 26 janvier 2024. Nous célebrons les 5 ans de la relation de Chou et Mac!"},
-	{"role": "user", "content": "Peux-tu me montrer la lettre que Mac a écrite pour Chou?"},
-        {"role": "assistant", "content": "Certainement, la voici : Je t'aime de tout mon coeur et je veux rester avec toi pour l'éternité."}
-];    
         function sendMessage() {
             const userInput = document.getElementById('user-input').value;
             const chatOutput = document.getElementById('chat-output');
-		
-    // Ajoute le nouveau message de l'utilisateur à la variable conversationHistory
-    conversationHistory.push({ role: 'user', content: userInput });
-		
+
     // Add user message to the chat container with user-message class
     chatOutput.innerHTML += `<span class="user-message">Vous: ${userInput}</span>`;
 
@@ -130,7 +116,19 @@
             },
             body: JSON.stringify({
                 "model": "mistral-small", // Replace with your Mistral AI model ID
-                "messages": conversationHistory,
+                "messages": [
+                    {"role": "user", "content": "allo"},
+                    {"role": "assistant", "content": "Je suis le chat bot ChouChou d'amour. Comment puis-je vous assister?"},
+                    {"role": "user", "content": "Parle moi de Mac"},
+                    {"role": "assistant", "content": "Mac est en couple avec Chou depuis le 26 janvier 2019 à 17h32. Mac aime Chou de tout son cœur. Mac a fait ce site web pour célébrer leur quatrième anniversaire de couple. Mac est né le 10 février 2003"},
+                    {"role": "user", "content": "Parfait, parle moi de Chou maintenant."},
+                    {"role": "assistant", "content": "Chou est la copine de Mac. Elle est formidable, excentrique, admirable, aimable, géniale, farfelue, rigolote, sensible, intelligente, créative, incroyable, forte, merveilleuse, intéressante, cultivée, jolie, séduisante et shmoutée. Chou est née le 29 aout 2003. Elle est une artiste exceptionnelle."},
+ 				{"role": "user", "content": "Quel jour sommes nous?"},
+                    {"role": "assistant", "content": "Nous sommes le 26 janvier 2024. Nous célebrons les 5 ans de la relation de Chou et Mac!"},
+				{"role": "user", "content": "Peux-tu me montrer la lettre que Mac a écrite pour Chou?"},
+                    {"role": "assistant", "content": "Certainement, la voici : Je t'aime de tout mon coeur et je veux rester avec toi pour l'éternité."},
+                    {"role": "user", "content": userInput}
+                ],
                 "temperature": 0.3,  // You can adjust this value
                 "top_p": 1,          // You can adjust this value
                 "max_tokens": 5000   // You can adjust this value
@@ -138,10 +136,6 @@
         })
             .then(response => response.json())
             .then(data => {
-
-	// Ajoute la réponse de Mistral AI à la variable conversationHistory
-        conversationHistory.push({ role: 'assistant', content: data.choices[0].message.content });
-
 	// Display Mistral AI response with assistant-message class
         chatOutput.innerHTML += `<span class="${data.choices[0].message.role}-message">${data.choices[0].message.role.charAt(0).toUpperCase() + data.choices[0].message.role.slice(1)}-assistant: ${data.choices[0].message.content}</span>`;
    	
