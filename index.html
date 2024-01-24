@@ -140,6 +140,8 @@
         chatOutput.innerHTML += `<span class="${data.choices[0].message.role}-message">${data.choices[0].message.role.charAt(0).toUpperCase() + data.choices[0].message.role.slice(1)}-assistant: ${data.choices[0].message.content}</span>`;
    	// Clear user input after sending the message
         document.getElementById('user-input').value = '';
+	// Clear chat output
+        chatOutput.innerText = '';
 	    })
         .catch(error => console.error('Error:', error));
 
