@@ -100,18 +100,20 @@
         const apiKey = 'K1NjJi3Vn9FwoGE71vYWbcSSkfNZl9qV'; // Replace with your actual Mistral AI API key
 
         let chatMessages = [];
-	let userMessages = [];
 
         function sendMessage() {
             const userInput = document.getElementById('user-input').value;
             const chatOutput = document.getElementById('chat-output');
-
-		// Réinitialiser la liste des messages de l'utilisateur
-    userMessages = [];
 		
             // Ajouter le message de l'utilisateur à la liste
     userMessages.push({ role: 'user', content: userInput });
-
+		
+    // Ajouter tous les messages à la liste (y compris les messages initiaux et les messages de l'utilisateur)
+    const allMessages = [
+        ...initialMessages,
+        ...chatMessages
+    ];
+		
             // Ajouter les messages spécifiés dans la partie "body"
             const initialMessages = [
                 {"role": "user", "content": "allo"},
@@ -127,9 +129,6 @@
                 {"role": "user", "content": "Quelles sont les affinités de ce couple"},
                 {"role": "assistant", "content": "Chou et Mac s'adorent puisqu'ils aiment rire ensemble et ont une passion commune pour la nature. De plus, Mac est un grand mangeur et Chou, une excellente cuisinière."},
             ];
-
-            // Ajouter les messages de la partie "body" à la liste
-chatMessages = initialMessages.concat(userMessages.map(message => ({ role: message.role, content: message.content })));
 		
             // Make API request for chat completions
             fetch('https://api.mistral.ai/v1/chat/completions', {
@@ -141,7 +140,7 @@ chatMessages = initialMessages.concat(userMessages.map(message => ({ role: messa
                 },
                 body: JSON.stringify({
                     "model": "mistral-small", // Replace with your Mistral AI model ID
-                    "messages": chatMessages,
+                    "messages": allMessages,
                     "temperature": 0.3,
                     "top_p": 1,
                     "max_tokens": 5000
