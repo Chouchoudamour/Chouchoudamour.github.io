@@ -108,7 +108,25 @@ function sendMessage() {
 
 	// Ajouter le message de l'utilisateur à la liste
     userMessages.push(userInput);
-	
+
+// Ajouter les messages spécifiés dans la partie "body"
+    const initialMessages = [
+        {"role": "user", "content": "allo"},
+        {"role": "assistant", "content": "Je suis le dialogueur ChouChou d'amour. Si vous avez des questions sur Chou et Mac, je suis là pour vous!"},
+        {"role": "user", "content": "Parle moi de Mac"},
+        {"role": "assistant", "content": "Mac est en couple avec Chou depuis le 26 janvier 2019 à 17h32. Il aime Chou de tout son cœur et a fait ce site web pour célébrer leur quatrième anniversaire de couple. Mac est né le 10 février 2003"},
+        {"role": "user", "content": "Parfait, parle moi de Chou maintenant."},
+        {"role": "assistant", "content": "Chou est la copine de Mac. Elle est formidable, excentrique, admirable, aimable, géniale, farfelue, rigolote, sensible, intelligente, créative, incroyable, forte, merveilleuse, intéressante, cultivée, jolie, séduisante et shmoutée. Chou est née le 29 aout 2003 et est une artiste exceptionnelle."},
+        {"role": "user", "content": "Quel jour sommes nous?"},
+        {"role": "assistant", "content": "Nous sommes le 26 janvier 2024. Nous célébrons les 5 ans de la relation de Chou et Mac!"},
+        {"role": "user", "content": "Peux-tu me montrer la lettre que Mac a écrite pour Chou?"},
+        {"role": "assistant", "content": "Certainement, la voici : Je t'aime de tout mon coeur et je veux rester avec toi pour l'éternité."},
+        {"role": "user", "content": "Quelles sont les affinités de ce couple"},
+        {"role": "assistant", "content": "Chou et Mac s'adorent puisqu'ils aiment rire ensemble et ont une passion commune pour la nature. De plus, Mac est un grand mangeur et Chou, une excellente cuisinière."},
+    ];
+	// Ajouter les messages de la partie "body" à la liste
+    chatMessages = initialMessages.concat(userMessages.map(message => ({ role: 'user', content: message })));
+
     // Make API request for chat completions
     fetch('https://api.mistral.ai/v1/chat/completions', {
         method: 'POST',
@@ -118,25 +136,11 @@ function sendMessage() {
             'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-                    "model": "mistral-small", // Replace with your Mistral AI model ID
-                    "messages": [
-                        {"role": "user", "content": "allo"},
-                        {"role": "assistant", "content": "Je suis le dialogueur ChouChou d'amour. Si vous avez des questions sur Chou et Mac, je suis là pour vous!"},
-                        {"role": "user", "content": "Parle moi de Mac"},
-                        {"role": "assistant", "content": "Mac est en couple avec Chou depuis le 26 janvier 2019 à 17h32. Il aime Chou de tout son cœur et a fait ce site web pour célébrer leur quatrième anniversaire de couple. Mac est né le 10 février 2003"},
-                        {"role": "user", "content": "Parfait, parle moi de Chou maintenant."},
-                        {"role": "assistant", "content": "Chou est la copine de Mac. Elle est formidable, excentrique, admirable, aimable, géniale, farfelue, rigolote, sensible, intelligente, créative, incroyable, forte, merveilleuse, intéressante, cultivée, jolie, séduisante et shmoutée. Chou est née le 29 aout 2003 et est une artiste exceptionnelle."},
-                        {"role": "user", "content": "Quel jour sommes nous?"},
-                        {"role": "assistant", "content": "Nous sommes le 26 janvier 2024. Nous célébrons les 5 ans de la relation de Chou et Mac!"},
-                        {"role": "user", "content": "Peux-tu me montrer la lettre que Mac a écrite pour Chou?"},
-                        {"role": "assistant", "content": "Certainement, la voici : Je t'aime de tout mon coeur et je veux rester avec toi pour l'éternité."},
-                        {"role": "user", "content": "Quelles sont les affinités de ce couple"},
-                        {"role": "assistant", "content": "Chou et Mac s'adorent puisqu'ils aiment rire ensemble et ont une passion commune pour la nature. De plus, Mac est un grand mangeur et Chou, une excellente cuisinière."},
-                        {"role": "user", "content": userInput}
-                    ].concat(userMessages.map(message => ({ role: 'user', content: message }))),
-                    "temperature": 0.3,
-                    "top_p": 1,
-                    "max_tokens": 5000
+            "model": "mistral-small", // Replace with your Mistral AI model ID
+            "messages": chatMessages,
+            "temperature": 0.3,
+            "top_p": 1,
+            "max_tokens": 5000
         })
     })
     .then(response => response.json())
