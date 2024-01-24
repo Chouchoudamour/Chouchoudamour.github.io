@@ -108,12 +108,6 @@
             // Ajouter le message de l'utilisateur à la liste
     userMessages.push({ role: 'user', content: userInput });
 		
-    // Ajouter tous les messages à la liste (y compris les messages initiaux et les messages de l'utilisateur)
-    const allMessages = [
-        ...initialMessages,
-        ...chatMessages
-    ];
-		
             // Ajouter les messages spécifiés dans la partie "body"
             const initialMessages = [
                 {"role": "user", "content": "allo"},
@@ -129,7 +123,11 @@
                 {"role": "user", "content": "Quelles sont les affinités de ce couple"},
                 {"role": "assistant", "content": "Chou et Mac s'adorent puisqu'ils aiment rire ensemble et ont une passion commune pour la nature. De plus, Mac est un grand mangeur et Chou, une excellente cuisinière."},
             ];
-		
+    // Ajouter tous les messages à la liste (y compris les messages initiaux et les messages de l'utilisateur)
+    const allMessages = [
+        ...initialMessages,
+        ...chatMessages
+    ];		
             // Make API request for chat completions
             fetch('https://api.mistral.ai/v1/chat/completions', {
                 method: 'POST',
