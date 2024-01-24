@@ -55,16 +55,6 @@
         color: #ff6b6b; /* Dark pink color */
         font-family: 'Parisienne', cursive; /* Use the same font family as the title */
         margin-top: 25px;
-#RecommencerButton {
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 16px;
-    background-color: #ff6b6b; /* Rose */
-    color: white; /* Texte blanc */
-    margin-top: 10px;
-    cursor: pointer; /* Curseur indiquant que l'élément est cliquable */
-    border: none; /* Pas de bordure */
-<button onclick="resetConversation()">Recommencer</button>
     }
 	#horlocouple {
     background-color: #474752; /* Couleur de fond de la boîte du chronomètre */
@@ -93,19 +83,19 @@
     </style>
 </head>
 <body>
-<div>
-    <h1>Chouchou d'amour dialogueur</h1>
-    <div id="main-container" style="display: flex; flex-direction: column; align-items: center;">
-        <div id="chat-container" style="display: flex; flex-direction: column; align-items: center; padding: 10px; border-radius: 15px; border: 5px solid #ff6b6b;">
-            <div id="chat-output"></div>
-            <div style="display: flex; align-items: center;">
-                <input type="text" id="user-input" placeholder="Parlons ensemble..." onkeydown="if (event.key === 'Enter') sendMessage()">
-                <button onclick="sendMessage()">Envoyer</button>
+    <div>
+        <h1>Chouchou d'amour dialogueur</h1>
+        <div id="main-container" style="display: flex; flex-direction: column; align-items: center;">
+            <div id="chat-container" style="display: flex; flex-direction: column; align-items: center;">
+                <div id="chat-output"></div>
+                <div style="display: flex; align-items: center;">
+                    <input type="text" id="user-input" placeholder="Parlons ensemble..." onkeydown="if (event.key === 'Enter') sendMessage()">
+                    <button onclick="sendMessage()">Envoyer</button>
+                </div>
+                <div id="horlocouple"></div>
             </div>
-            <div id="horlocouple"></div>
         </div>
     </div>
-</div>
 <script>
     const apiKey = 'K1NjJi3Vn9FwoGE71vYWbcSSkfNZl9qV'; // Remplacez par votre clé API Mistral AI
 
@@ -140,20 +130,6 @@
         // Ajoute le message de l'utilisateur au chat avec la classe user-message
         chatOutput.innerHTML += `<span class="user-message">Vous: ${userInput}</span>`;
 
-	    function resetConversation() {
-    // Remet l'historique de la conversation aux messages initiaux
-    conversationHistory = [
-        {"role": "user", "content": "allo"},
-        {"role": "assistant", "content": "Je suis le chat bot ChouChou d'amour. Comment puis-je vous assister?"},
-        {"role": "user", "content": "Parle moi de Mac"},
-        {"role": "assistant", "content": "Mac est en couple avec Chou depuis le 26 janvier 2019 à 17h32. Mac aime Chou de tout son cœur. Mac a fait ce site web pour célébrer leur quatrième anniversaire de couple. Mac est né le 10 février 2003"},
-        {"role": "user", "content": "Parfait, parle moi de Chou maintenant."},
-        {"role": "assistant", "content": "Chou est la copine de Mac. Elle est formidable, excentrique, admirable, aimable, géniale, farfelue, rigolote, sensible, intelligente, créative, incroyable, forte, merveilleuse, intéressante, cultivée, jolie, séduisante et shmoutée. Chou est née le 29 aout 2003. Elle est une artiste exceptionnelle."},
-        {"role": "user", "content": "Quel jour sommes nous?"},
-        {"role": "assistant", "content": "Nous sommes le 26 janvier 2024. Nous célébrons les 5 ans de la relation de Chou et Mac!"},
-        {"role": "user", "content": "Peux-tu me montrer la lettre que Mac a écrite pour Chou?"},
-        {"role": "assistant", "content": "Certainement, la voici : Je t'aime de tout mon coeur et je veux rester avec toi pour l'éternité."},
-    ];
         // Fait une requête API pour les complétions de chat
         fetch('https://api.mistral.ai/v1/chat/completions', {
             method: 'POST',
