@@ -99,17 +99,11 @@
 <script>
     const apiKey = 'K1NjJi3Vn9FwoGE71vYWbcSSkfNZl9qV'; // Replace with your actual Mistral AI API key
 	
-let chatMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+let chatMessages = [];
 	
 function sendMessage() {
     const userInput = document.getElementById('user-input').value;
     const chatOutput = document.getElementById('chat-output');
-
-    // Ajoutez le message utilisateur au tableau
-    chatMessages.push({ role: 'user', content: userInput });
-
-    // Récupérez tous les messages de l'utilisateur
-    const userMessages = chatMessages.filter(message => message.role === 'user').map(message => message.content);
 
     // Make API request for chat completions
     fetch('https://api.mistral.ai/v1/chat/completions', {
@@ -143,35 +137,19 @@ function sendMessage() {
     })
     .then(response => response.json())
     .then(data => {
-        // Ajoutez la réponse de l'assistant au tableau
-        chatMessages.push({ role: 'assistant', content: data.choices[0].message.content });
+            // Display Mistral AI response
+            chatOutput.innerHTML += `<span class="assistant-message">Chou-assistant: ${data.choices[0].message.content}</span>`;
 
-        // Mettez à jour l'affichage du chat
-        updateChatDisplay();
+            // Add user message to chat messages
+            chatMessages.push({ role: 'user', content: userInput });
 
-        // Reset user input
-        document.getElementById('user-input').value = '';
-    })
-    .catch(error => console.error('Error:', error));
-}
+            // Add assistant message to chat messages
+            chatMessages.push({ role: 'assistant', content: data.choices[0].message.content });
 
-    function updateChatDisplay() {
-        const chatOutput = document.getElementById('chat-output');
-
-        // Effacez le contenu actuel
-        chatOutput.innerHTML = '';
-
-        // Parcourez le tableau et ajoutez chaque message au chat
-chatMessages.forEach(message => {
-    if (message.role === 'user') {
-        chatOutput.innerHTML += `<span class="user-message">User: ${message.content}</span>`;
-    } else if (message.role === 'assistant') {
-        chatOutput.innerHTML += `<span class="assistant-message">Chou-assistant: ${message.content}</span>`;
-    }
-});
-
-// Mettez à jour le stockage local avec les nouveaux messages
-localStorage.setItem('chatMessages', JSON.stringify(chatMessages));
+            // Reset user input
+            document.getElementById('user-input').value = '';
+        })
+        .catch(error => console.error('Error:', error));
     }
 
 // Function to update the "horlocouple" element
