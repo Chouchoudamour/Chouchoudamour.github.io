@@ -96,69 +96,69 @@
             </div>
         </div>
     </div>
-    <script>
-        const apiKey = 'K1NjJi3Vn9FwoGE71vYWbcSSkfNZl9qV'; // Remplacez par votre clé API Mistral AI
+<script>
+    const apiKey = 'K1NjJi3Vn9FwoGE71vYWbcSSkfNZl9qV'; // Remplacez par votre clé API Mistral AI
 
-        // Récupère l'historique de la conversation depuis le stockage local au chargement de la page
-        const storedHistory = localStorage.getItem('conversationHistory');
+    // Récupère l'historique de la conversation depuis le stockage local au chargement de la page
+    const storedHistory = localStorage.getItem('conversationHistory');
 
-        // Initialise la variable conversationHistory avec l'historique récupéré ou un tableau vide si aucun historique n'est trouvé
-        let conversationHistory = storedHistory ? JSON.parse(storedHistory) : [
-            {"role": "user", "content": "allo"},
-            {"role": "assistant", "content": "Je suis le chat bot ChouChou d'amour. Comment puis-je vous assister?"},
-            {"role": "user", "content": "Parle moi de Mac"},
-            {"role": "assistant", "content": "Mac est en couple avec Chou depuis le 26 janvier 2019 à 17h32. Mac aime Chou de tout son cœur. Mac a fait ce site web pour célébrer leur quatrième anniversaire de couple. Mac est né le 10 février 2003"},
-            {"role": "user", "content": "Parfait, parle moi de Chou maintenant."},
-            {"role": "assistant", "content": "Chou est la copine de Mac. Elle est formidable, excentrique, admirable, aimable, géniale, farfelue, rigolote, sensible, intelligente, créative, incroyable, forte, merveilleuse, intéressante, cultivée, jolie, séduisante et shmoutée. Chou est née le 29 aout 2003. Elle est une artiste exceptionnelle."},
-            {"role": "user", "content": "Quel jour sommes nous?"},
-            {"role": "assistant", "content": "Nous sommes le 26 janvier 2024. Nous célébrons les 5 ans de la relation de Chou et Mac!"},
-            {"role": "user", "content": "Peux-tu me montrer la lettre que Mac a écrite pour Chou?"},
-            {"role": "assistant", "content": "Certainement, la voici : Je t'aime de tout mon coeur et je veux rester avec toi pour l'éternité."},
-        ];
+    // Initialise la variable conversationHistory avec l'historique récupéré ou un tableau vide si aucun historique n'est trouvé
+    let conversationHistory = storedHistory ? JSON.parse(storedHistory) : [
+        {"role": "user", "content": "allo"},
+        {"role": "assistant", "content": "Je suis le chat bot ChouChou d'amour. Comment puis-je vous assister?"},
+        {"role": "user", "content": "Parle moi de Mac"},
+        {"role": "assistant", "content": "Mac est en couple avec Chou depuis le 26 janvier 2019 à 17h32. Mac aime Chou de tout son cœur. Mac a fait ce site web pour célébrer leur quatrième anniversaire de couple. Mac est né le 10 février 2003"},
+        {"role": "user", "content": "Parfait, parle moi de Chou maintenant."},
+        {"role": "assistant", "content": "Chou est la copine de Mac. Elle est formidable, excentrique, admirable, aimable, géniale, farfelue, rigolote, sensible, intelligente, créative, incroyable, forte, merveilleuse, intéressante, cultivée, jolie, séduisante et shmoutée. Chou est née le 29 aout 2003. Elle est une artiste exceptionnelle."},
+        {"role": "user", "content": "Quel jour sommes nous?"},
+        {"role": "assistant", "content": "Nous sommes le 26 janvier 2024. Nous célébrons les 5 ans de la relation de Chou et Mac!"},
+        {"role": "user", "content": "Peux-tu me montrer la lettre que Mac a écrite pour Chou?"},
+        {"role": "assistant", "content": "Certainement, la voici : Je t'aime de tout mon coeur et je veux rester avec toi pour l'éternité."},
+    ];
 
-        // Fonction pour envoyer un message
-        function sendMessage() {
-            const userInput = document.getElementById('user-input').value;
-            const chatOutput = document.getElementById('chat-output');
+    // Fonction pour envoyer un message
+    function sendMessage() {
+        const userInput = document.getElementById('user-input').value;
+        const chatOutput = document.getElementById('chat-output');
 
-            // Ajoute le nouveau message de l'utilisateur à la variable conversationHistory
-            conversationHistory.push({ role: 'user', content: userInput });
+        // Ajoute le nouveau message de l'utilisateur à la variable conversationHistory
+        conversationHistory.push({ role: 'user', content: userInput });
 
-            // Sauvegarde dans le stockage local
-            localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
+        // Sauvegarde dans le stockage local
+        localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
 
-            // Ajoute le message de l'utilisateur au chat avec la classe user-message
-            chatOutput.innerHTML += `<span class="user-message">Vous: ${userInput}</span>`;
+        // Ajoute le message de l'utilisateur au chat avec la classe user-message
+        chatOutput.innerHTML += `<span class="user-message">Vous: ${userInput}</span>`;
 
-            // Fait une requête API pour les complétions de chat
-            fetch('https://api.mistral.ai/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': `Bearer ${apiKey}`
-                },
-                body: JSON.stringify({
-                    "model": "mistral-small", // Remplacez par votre ID de modèle Mistral AI
-                    "messages": conversationHistory,
-                    "temperature": 0.3,  // Vous pouvez ajuster cette valeur
-                    "top_p": 1,          // Vous pouvez ajuster cette valeur
-                    "max_tokens": 5000   // Vous pouvez ajuster cette valeur
-                })
+        // Fait une requête API pour les complétions de chat
+        fetch('https://api.mistral.ai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                "model": "mistral-small", // Remplacez par votre ID de modèle Mistral AI
+                "messages": conversationHistory,
+                "temperature": 0.3,  // Vous pouvez ajuster cette valeur
+                "top_p": 1,          // Vous pouvez ajuster cette valeur
+                "max_tokens": 5000   // Vous pouvez ajuster cette valeur
             })
-            .then(response => response.json())
-            .then(data => {
-                // Ajoute la réponse de Mistral AI à la variable conversationHistory
-                conversationHistory.push({ role: 'assistant', content: data.choices[0].message.content });
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Ajoute la réponse de Mistral AI à la variable conversationHistory
+            conversationHistory.push({ role: 'assistant', content: data.choices[0].message.content });
 
-                // Ajoute la réponse de Mistral AI au chat avec la classe assistant-message
-                chatOutput.innerHTML += `<span class="assistant-message">ChouChou: ${data.choices[0].message.content}</span>`;
-                
-                // Efface le champ de saisie utilisateur après l'envoi du message
-                document.getElementById('user-input').value = '';
-            })
-            .catch(error => console.error('Error:', error));
-        }
+            // Ajoute la réponse de Mistral AI au chat avec la classe assistant-message
+            chatOutput.innerHTML += `<span class="assistant-message">ChouChou: ${data.choices[0].message.content}</span>`;
+            
+            // Efface le champ de saisie utilisateur après l'envoi du message
+            document.getElementById('user-input').value = '';
+        })
+        .catch(error => console.error('Error:', error));
+    }
 
         // Function to update the "horlocouple" element
         function updateHorloCouple() {
