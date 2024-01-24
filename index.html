@@ -138,10 +138,13 @@
             .then(data => {
 	// Display Mistral AI response with assistant-message class
         chatOutput.innerHTML += `<span class="${data.choices[0].message.role}-message">${data.choices[0].message.role.charAt(0).toUpperCase() + data.choices[0].message.role.slice(1)}-assistant: ${data.choices[0].message.content}</span>`;
-   	// Clear user input after sending the message
+   	
+	// Efface le champ de saisie utilisateur après l'envoi du message
         document.getElementById('user-input').value = '';
-	// Clear chat output
-        chatOutput.innerText = '';
+
+        // Efface le contenu de l'élément chat-output
+        chatOutput.innerHTML = '';
+		    
 	    })
         .catch(error => console.error('Error:', error));
 
