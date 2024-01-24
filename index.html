@@ -144,9 +144,6 @@ function sendMessage() {
             // Display Mistral AI response
             chatOutput.innerHTML += `<span class="assistant-message">Chou-assistant: ${data.choices[0].message.content}</span>`;
 
-            // Add user message to chat messages
-            chatMessages.push({ role: 'user', content: userInput });
-
             // Add assistant message to chat messages
             chatMessages.push({ role: 'assistant', content: data.choices[0].message.content });
 
