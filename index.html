@@ -103,6 +103,9 @@
             const userInput = document.getElementById('user-input').value;
             const chatOutput = document.getElementById('chat-output');
 
+		// Add user message to the chat container with user-message class
+        chatOutput.innerHTML += `<div class="user-message">Vous: ${userInput}</div>`;
+
             // Make API request for chat completions
         fetch('https://api.mistral.ai/v1/chat/completions', {
             method: 'POST',
@@ -133,8 +136,8 @@
         })
             .then(response => response.json())
             .then(data => {
-                // Display Mistral AI response
-            chatOutput.innerHTML += `<div>Chou-assistant: ${data.choices[0].message.content}</div>`;
+                // Display Mistral AI response with assistant-message class
+            chatOutput.innerHTML += `<div class="assistant-message">Chou-assistant: ${data.choices[0].message.content}</div>`;
         })
         .catch(error => console.error('Error:', error));
     }
