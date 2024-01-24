@@ -122,7 +122,7 @@
         const chatOutput = document.getElementById('chat-output');
 
         // Ajoute le nouveau message de l'utilisateur à la variable conversationHistory
-        conversationHistory.push({ role: 'user', content: userInput });
+        conversationHistory.push({"role": "user", "content": userInput });
 
         // Sauvegarde dans le stockage local
         localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
@@ -149,10 +149,10 @@
         .then(response => response.json())
         .then(data => {
             // Ajoute la réponse de Mistral AI à la variable conversationHistory
-            conversationHistory.push({ role: 'assistant', content: data.choices[0].message.content });
+            conversationHistory.push({"role": "assistant", "content": data.choices[0].message.content });
 
             // Ajoute la réponse de Mistral AI au chat avec la classe assistant-message
-            chatOutput.innerHTML += `<span class="assistant-message">ChouChou: ${data.choices[0].message.content}</span>`;
+            chatOutput.innerHTML += `<span class="assistant-message">Dialogueur: ${data.choices[0].message.content}</span>`;
             
             // Efface le champ de saisie utilisateur après l'envoi du message
             document.getElementById('user-input').value = '';
